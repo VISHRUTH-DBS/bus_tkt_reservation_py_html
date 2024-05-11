@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Ticket Reservation System</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"], input[type="date"], input[type="email"], input[type="tel"], select, input[type="number"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Bus Ticket Reservation</h2>
+  <form id="reservationForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="departure">Departure City:</label>
+    <input type="text" id="departure" name="departure" required><br>
+
+    <label for="destination">Destination City:</label>
+    <input type="text" id="destination" name="destination" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required><br>
+
+    <label for="buses">Available Buses:</label>
+    <select id="buses" name="buses" required><br>
+      <option value="BMTC">BMTC</option>
+      <option value="KSRTC">KSRTC</option>
+      <option value="Sleeper">Sleeper</option>
+      <option value="Sleeper Non-AC">Sleeper Non-AC</option>
+    </select><br>
+
+    <label for="seats">Number of Seats:</label>
+    <input type="number" id="seats" name="seats" min="1" max="10" required><br>
+
+    <input type="submit" value="Book Ticket">
+  </form>
+  <div id="reservationStatus"></div>
+</div><br>
+
+<script>
+  document.getElementById('reservationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var name = document.getElementById('name').value;
+    var age = document.getElementById('age').value;
+    var phoneNumber = document.getElementById('phoneNumber').value;
+    var email = document.getElementById('email').value;
+    var departure = document.getElementById('departure').value;
+    var destination = document.getElementById('destination').value;
+    var date = document.getElementById('date').value;
+    var selectedBus = document.getElementById('buses').value;
+    var seats = document.getElementById('seats').value;
+
+    var price = 0;
+    switch(selectedBus) {
+      case "BMTC":
+        price = 200; // INR
+        break;
+      case "KSRTC":
+        price = 250; // INR
+        break;
+      case "Sleeper":
+        price = 1000; // INR
+        break;
+      case "Sleeper Non-AC":
+        price = 750; // INR
+        break;
+      default:
+        price = 0;
+    }
+
+    var totalPrice = price * seats;
+
+
+    var reservationStatus = document.getElementById('reservationStatus');
+    reservationStatus.innerHTML = `<p>Ticket booked successfully!</p>
+                                   <p>Name: ${name}</p>
+                                   <p>Age: ${age}</p>
+                                   <p>Phone Number: ${phoneNumber}</p>
+                                   <p>Email: ${email}</p>
+                                   <p>Departure: ${departure}</p>
+                                   <p>Destination: ${destination}</p>
+                                   <p>Date: ${date}</p>
+                                   <p>Bus: ${selectedBus}</p>
+                                   <p>Price Per Seat: ₹${price}</p>
+                                   <p>Number of Seats: ${seats}</p>
+                                   <p>Total Price: ₹${totalPrice}</p>`;
+  });
+</script>
+
+</body>
+</html>
